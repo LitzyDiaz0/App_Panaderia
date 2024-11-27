@@ -33,7 +33,7 @@ class LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.all(20),
               color: Colors.white,
               child: const Text(
-                'El Rincon del pan',
+                'El Rincón del pan',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
