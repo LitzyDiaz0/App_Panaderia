@@ -36,14 +36,24 @@ class AdministrarUsuariosPage extends StatelessWidget {
           // Imagen personalizada
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Image.asset(
-              'assets/img/empleados.png', // Ruta de la imagen personalizada
-              height: 130,
-              width: 130,
-              fit: BoxFit.cover,
+            child: ClipOval(
+              child: Container(
+                width: 130, // Ancho del contorno circular
+                height: 130, // Alto del contorno circular
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black, // Color del borde
+                    width: 4, // Grosor del borde
+                  ),
+                  shape: BoxShape.circle, // Forma circular
+                ),
+                child: Image.asset(
+                  'assets/img/empleados.png', // Ruta de la imagen personalizada
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
-          // Espacio debajo de la imagen
           // Título de empleados
           const Text(
             'Empleados',
@@ -54,91 +64,192 @@ class AdministrarUsuariosPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20), // Espacio debajo del título
-          // Botón para agregar usuario
+          // Botón para agregar usuario alineado a la izquierda
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: ElevatedButton.icon(
-              onPressed: () {
-                // Lógica para agregar un nuevo usuario
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  side: const BorderSide(color: Colors.black, width: 1),
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+            child: Row(
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () {
+                    // Lógica para agregar un nuevo usuario
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 20),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      side: const BorderSide(color: Colors.black, width: 1),
+                    ),
+                  ),
+                  icon: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white, // Fondo blanco del círculo
+                      shape: BoxShape.circle, // Forma circular
+                      border: Border.all(
+                          color: Colors.black, width: 2), // Borde negro
+                    ),
+                    padding: const EdgeInsets.all(
+                        2.0), // Espacio alrededor del ícono
+                    child: const Icon(
+                      Icons.add, // Icono de agregar
+                      color: Colors.black,
+                    ),
+                  ),
+                  label: const Text(
+                    'Agregar Empleado',
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
-              ),
-              icon: const Icon(
-                Icons.add, // Icono de agregar
-                color: Colors.black,
-              ),
-              label: const Text(
-                'Agregar Empleado',
-                style: TextStyle(color: Colors.black),
-              ),
+              ],
             ),
           ),
           const SizedBox(height: 20), // Espacio debajo del botón
           // Tabla de empleados
           Expanded(
             child: SingleChildScrollView(
-              child: DataTable(
-                columns: const [
-                  DataColumn(label: Text('Nombre')),
-                  DataColumn(label: Text('Teléfono')),
-                  DataColumn(label: Text('Turno')),
-                  DataColumn(label: Text('Usuario')),
-                  DataColumn(label: Text('Acciones')),
-                ],
-                rows: [
-                  DataRow(cells: [
-                    const DataCell(Text('Juan Pérez')),
-                    const DataCell(Text('555-1234')),
-                    const DataCell(Text('Mañana')),
-                    const DataCell(Text('jperez')),
-                    DataCell(Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () {
-                            // Lógica para editar
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () {
-                            // Lógica para eliminar
-                          },
-                        ),
+              scrollDirection: Axis.vertical, // Permite desplazamiento vertical
+              child: SingleChildScrollView(
+                scrollDirection:
+                    Axis.horizontal, // Permite desplazamiento horizontal
+                child: Padding(
+                  padding: const EdgeInsets.all(
+                      8.0), // Padding para evitar que la tabla toque los bordes
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Colors.black), // Borde alrededor de la tabla
+                      borderRadius:
+                          BorderRadius.circular(8), // Bordes redondeados
+                    ),
+                    child: DataTable(
+                      columnSpacing: 15, // Mayor espacio entre columnas
+                      // ignore: deprecated_member_use
+                      dataRowHeight: 60, // Más espacio entre las filas
+                      columns: const [
+                        DataColumn(label: Text('Nombre')),
+                        DataColumn(label: Text('Teléfono')),
+                        DataColumn(label: Text('Turno')),
+                        DataColumn(label: Text('Usuario')),
+                        DataColumn(label: Text('Acciones')),
                       ],
-                    )),
-                  ]),
-                  DataRow(cells: [
-                    const DataCell(Text('Ana Gómez')),
-                    const DataCell(Text('555-5678')),
-                    const DataCell(Text('Tarde')),
-                    const DataCell(Text('agomez')),
-                    DataCell(Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () {
-                            // Lógica para editar
-                          },
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () {
-                            // Lógica para eliminar
-                          },
-                        ),
+                      rows: [
+                        DataRow(cells: [
+                          const DataCell(Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text('Juan Pérez',
+                                style: TextStyle(fontSize: 14)),
+                          )),
+                          const DataCell(Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text('555-1234',
+                                style: TextStyle(fontSize: 14)),
+                          )),
+                          const DataCell(Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child:
+                                Text('Mañana', style: TextStyle(fontSize: 14)),
+                          )),
+                          const DataCell(Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child:
+                                Text('jperez', style: TextStyle(fontSize: 14)),
+                          )),
+                          DataCell(Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.orange, // Relleno naranja
+                                  borderRadius: BorderRadius.circular(
+                                      8), // Esquinas redondeadas
+                                ),
+                                child: IconButton(
+                                  icon: const Icon(Icons.edit),
+                                  color: Colors.white, // Ícono blanco
+                                  onPressed: () {
+                                    // Lógica para editar
+                                  },
+                                ),
+                              ),
+                              const SizedBox(width: 8), // Espacio entre íconos
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.pink, // Relleno rosa
+                                  borderRadius: BorderRadius.circular(
+                                      8), // Esquinas redondeadas
+                                ),
+                                child: IconButton(
+                                  icon: const Icon(Icons.delete),
+                                  color: Colors.white, // Ícono blanco
+                                  onPressed: () {
+                                    // Lógica para eliminar
+                                  },
+                                ),
+                              ),
+                            ],
+                          )),
+                        ]),
+                        DataRow(cells: [
+                          const DataCell(Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text('Ana Gómez',
+                                style: TextStyle(fontSize: 14)),
+                          )),
+                          const DataCell(Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text('555-5678',
+                                style: TextStyle(fontSize: 14)),
+                          )),
+                          const DataCell(Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child:
+                                Text('Tarde', style: TextStyle(fontSize: 14)),
+                          )),
+                          const DataCell(Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child:
+                                Text('agomez', style: TextStyle(fontSize: 14)),
+                          )),
+                          DataCell(Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.orange, // Relleno naranja
+                                  borderRadius: BorderRadius.circular(
+                                      8), // Esquinas redondeadas
+                                ),
+                                child: IconButton(
+                                  icon: const Icon(Icons.edit),
+                                  color: Colors.white, // Ícono blanco
+                                  onPressed: () {
+                                    // Lógica para editar
+                                  },
+                                ),
+                              ),
+                              const SizedBox(width: 8), // Espacio entre íconos
+                              Container(
+                                // Tamaño más pequeño
+                                decoration: BoxDecoration(
+                                  color: Colors.pink, // Relleno rosa
+                                  borderRadius: BorderRadius.circular(
+                                      8), // Esquinas redondeadas
+                                ),
+                                child: IconButton(
+                                  icon: const Icon(Icons.delete),
+                                  color: Colors.white, // Ícono blanco
+                                  onPressed: () {
+                                    // Lógica para eliminar
+                                  },
+                                ),
+                              ),
+                            ],
+                          )),
+                        ]),
+                        // Puedes agregar más filas aquí
                       ],
-                    )),
-                  ]),
-                  // Puedes agregar más filas aquí
-                ],
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
