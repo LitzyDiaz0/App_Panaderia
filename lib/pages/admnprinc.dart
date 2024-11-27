@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './puntoventa.dart';
+import './login.dart';
 
 class AdminPage extends StatelessWidget {
   const AdminPage({super.key});
@@ -85,7 +86,9 @@ class AdminPage extends StatelessWidget {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const PuntoDeVentaPage(),
+                              builder: (context) => const PuntoDeVentaPage(
+                                rol: '',
+                              ),
                             ),
                           );
                         },
@@ -221,6 +224,53 @@ class AdminPage extends StatelessWidget {
                         ),
                         child: const Text(
                           'Administrar Empleados',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Amethysta',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 35),
+                  // Botón 5
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.65,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color.fromARGB(255, 209, 209, 209)
+                                .withOpacity(0.9),
+                            spreadRadius: 1,
+                            blurRadius: 4,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Lógica para cambiar usuario
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const LoginPage(), // Asegúrate de que LoginPage esté importado
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            side: const BorderSide(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                          ),
+                        ),
+                        child: const Text(
+                          'Cambiar de usuario',
                           style: TextStyle(
                             color: Colors.black,
                             fontFamily: 'Amethysta',

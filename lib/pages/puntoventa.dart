@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import './admnprinc.dart';
+import './login.dart'; // Asegúrate de importar tu página de login
 
 class PuntoDeVentaPage extends StatelessWidget {
-  const PuntoDeVentaPage({super.key});
+  final String rol; // Agregamos el rol del usuario
+
+  const PuntoDeVentaPage({super.key, required this.rol});
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +33,24 @@ class PuntoDeVentaPage extends StatelessWidget {
                         ), // Flecha para volver
                         iconSize: 40, // Tamaño del ícono de la flecha
                         onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const AdminPage(),
-                            ),
-                          );
+                          if (rol == 'empleado') {
+                            // Si es empleado, redirige al login
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const LoginPage(), // Asegúrate de que LoginPage esté importado
+                              ),
+                            );
+                          } else {
+                            // Si no es empleado, se comporta normalmente
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const AdminPage(),
+                              ),
+                            );
+                          }
                         },
                       ),
                     ),

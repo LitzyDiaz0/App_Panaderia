@@ -29,12 +29,17 @@ class LoginPageState extends State<LoginPage> {
       if (user.rol == 'admin') {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const AdminPage()),
+          MaterialPageRoute(
+            builder: (context) => const AdminPage(),
+          ),
         );
       } else if (user.rol == 'empleado') {
+        // Pasa el rol del usuario a la siguiente página
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const PuntoDeVentaPage()),
+          MaterialPageRoute(
+            builder: (context) => PuntoDeVentaPage(rol: user.rol),
+          ),
         );
       }
     } else {
