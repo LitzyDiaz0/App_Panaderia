@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './admnprinc.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -37,7 +38,6 @@ class LoginPageState extends State<LoginPage> {
                 style: TextStyle(
                   fontSize: 48,
                   fontFamily: 'Italianno',
-                  fontWeight: FontWeight.bold,
                   color: Color.fromRGBO(144, 73, 10, 1),
                 ),
                 textAlign: TextAlign.center,
@@ -113,6 +113,13 @@ class LoginPageState extends State<LoginPage> {
                     ElevatedButton(
                       onPressed: () {
                         // Lógica de login
+
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AdminPage(),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
