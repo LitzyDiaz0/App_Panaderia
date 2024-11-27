@@ -135,7 +135,6 @@ class LoginPageState extends State<LoginPage> {
                         // Texto negro
                       ),
                     ),
-                    const SizedBox(height: 30),
                   ],
                 ),
               ),
