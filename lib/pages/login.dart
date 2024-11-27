@@ -30,12 +30,13 @@ class LoginPageState extends State<LoginPage> {
             left: 0,
             right: 0,
             child: Container(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(10),
               color: Colors.white,
               child: const Text(
                 'El Rincón del pan',
                 style: TextStyle(
-                  fontSize: 30,
+                  fontSize: 48,
+                  fontFamily: 'Italianno',
                   fontWeight: FontWeight.bold,
                   color: Color.fromRGBO(144, 73, 10, 1),
                 ),
@@ -45,9 +46,9 @@ class LoginPageState extends State<LoginPage> {
           ),
           // Caja de login con fondo blanco
           Positioned(
-            top: 280,
-            left: 20,
-            right: 20,
+            top: 250,
+            left: 25,
+            right: 25,
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white, // Fondo blanco
@@ -59,34 +60,41 @@ class LoginPageState extends State<LoginPage> {
                     offset: const Offset(0, 4), // Sombras
                   ),
                 ],
+                border: const Border(
+                  top: BorderSide(
+                      color: Color.fromRGBO(144, 73, 10, 1), width: 10),
+                  left: BorderSide(
+                      color: Color.fromRGBO(144, 73, 10, 1), width: 10),
+                ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(35.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text(
                       'Login',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 30,
+                        fontFamily: 'Aleo',
+                        color: Color.fromRGBO(107, 58, 19, 1),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 40), // Aumentar la separación
+                    const SizedBox(height: 10), // Aumentar la separación
                     TextField(
                       controller: usuarioController,
                       decoration: const InputDecoration(
-                        labelText: 'Usuario',
-                        border: OutlineInputBorder(),
+                        labelText: 'Usuario:',
+                        labelStyle: TextStyle(fontFamily: 'Amethysta'),
                       ),
                     ),
-                    const SizedBox(height: 45), // Aumentar la separación
+                    const SizedBox(height: 35), // Aumentar la separación
                     TextField(
                       controller: contrasenaController,
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
-                        labelText: 'Contraseña',
-                        border: const OutlineInputBorder(),
+                        labelText: 'Contraseña:',
                         suffixIcon: IconButton(
                           icon: Icon(
                             _obscurePassword
@@ -108,7 +116,7 @@ class LoginPageState extends State<LoginPage> {
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 10),
+                            horizontal: 40, vertical: 10),
                         textStyle: const TextStyle(fontSize: 18),
                         backgroundColor: const Color.fromARGB(
                             255, 255, 255, 255), // Fondo blanco del botón
@@ -123,9 +131,11 @@ class LoginPageState extends State<LoginPage> {
                       ),
                       child: const Text(
                         'Aceptar',
-                        style: TextStyle(color: Colors.black), // Texto negro
+                        style: TextStyle(color: Colors.black),
+                        // Texto negro
                       ),
                     ),
+                    const SizedBox(height: 30),
                   ],
                 ),
               ),

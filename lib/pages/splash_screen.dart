@@ -41,6 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       'Bienvenido a la aplicación',
                       style: TextStyle(
                         fontSize: 30,
+                        fontFamily: 'Aleo',
                         fontWeight: FontWeight.bold,
                         color: Color.fromRGBO(117, 60, 9, 1),
                       ),
@@ -78,6 +79,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     'Cargando...',
                     style: TextStyle(
                       fontSize: 18,
+                      fontFamily: 'Aleo',
                       fontWeight: FontWeight.w600,
                       color: Color.fromRGBO(117, 60, 9, 1),
                     ),

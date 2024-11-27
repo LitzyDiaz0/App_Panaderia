@@ -30,4 +30,17 @@ flutter:
     - assets/img/logo.png
     - assets/img/fondo.jpg
 
+  fonts:
+    - family: Aleo
+      fonts:
+        - asset: assets/fonts/Aleo-VariableFont_wght.ttf
+
+    - family: Italianno
+      fonts:
+        - asset: assets/fonts/Italianno-Regular.ttf
+
+    - family: Amethysta
+      fonts:
+        - asset: assets/fonts/Amethysta-Regular.ttf
+
   uses-material-design: true
