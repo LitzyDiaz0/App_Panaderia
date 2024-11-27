@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './admnprinc.dart';
+import './puntoventa.dart'; // Pantalla para empleados
+import '../services/auth_service.dart'; // Servicio de autenticación
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,7 +13,37 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
   final TextEditingController usuarioController = TextEditingController();
   final TextEditingController contrasenaController = TextEditingController();
+  final AuthService authService =
+      AuthService(); // Instancia del servicio de autenticación
   bool _obscurePassword = true; // Para ocultar/mostrar la contraseña
+
+  void _login() {
+    String usuario = usuarioController.text.trim();
+    String contrasena = contrasenaController.text.trim();
+
+    // Validar login usando el servicio
+    final user = authService.validarLogin(usuario, contrasena);
+
+    if (user != null) {
+      // Si el usuario existe, redirige según el rol
+      if (user.rol == 'admin') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const AdminPage()),
+        );
+      } else if (user.rol == 'empleado') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const PuntoDeVentaPage()),
+        );
+      }
+    } else {
+      // Si el login falla, muestra un mensaje
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Usuario o contraseña incorrectos')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,13 +83,13 @@ class LoginPageState extends State<LoginPage> {
             right: 25,
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white, // Fondo blanco
-                borderRadius: BorderRadius.circular(16), // Bordes redondeados
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
                     blurRadius: 8,
-                    offset: const Offset(0, 4), // Sombras
+                    offset: const Offset(0, 4),
                   ),
                 ],
                 border: const Border(
@@ -81,7 +113,7 @@ class LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 10), // Aumentar la separación
+                    const SizedBox(height: 10),
                     TextField(
                       controller: usuarioController,
                       decoration: const InputDecoration(
@@ -89,7 +121,7 @@ class LoginPageState extends State<LoginPage> {
                         labelStyle: TextStyle(fontFamily: 'Amethysta'),
                       ),
                     ),
-                    const SizedBox(height: 35), // Aumentar la separación
+                    const SizedBox(height: 35),
                     TextField(
                       controller: contrasenaController,
                       obscureText: _obscurePassword,
@@ -109,18 +141,10 @@ class LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 40), // Aumentar la separación
+                    const SizedBox(height: 40),
                     ElevatedButton(
-                      onPressed: () {
-                        // Lógica de login
-
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AdminPage(),
-                          ),
-                        );
-                      },
+                      onPressed:
+                          _login, // Conecta el botón con el método _login
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 40, vertical: 10),
@@ -128,18 +152,16 @@ class LoginPageState extends State<LoginPage> {
                         backgroundColor: const Color.fromARGB(
                             255, 255, 255, 255), // Fondo blanco del botón
                         shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(10), // Menos redondeo
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         side: const BorderSide(
-                          color: Colors.black, // Color del borde
-                          width: 1, // Grosor del borde
+                          color: Colors.black,
+                          width: 1,
                         ),
                       ),
                       child: const Text(
                         'Aceptar',
                         style: TextStyle(color: Colors.black),
-                        // Texto negro
                       ),
                     ),
                   ],
