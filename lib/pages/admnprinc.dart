@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './puntoventa.dart';
 import './login.dart';
+import './adminusers.dart';
 
 class AdminPage extends StatelessWidget {
   const AdminPage({super.key});
@@ -211,6 +212,13 @@ class AdminPage extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           // Lógica para Administrar Empleados
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const AdministrarUsuariosPage(), // Asegúrate de que LoginPage esté importado
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
