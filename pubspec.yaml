@@ -30,6 +30,7 @@ flutter:
     - assets/img/logo.png
     - assets/img/fondo.jpg
     - assets/img/fondo2.jpeg
+    - assets/img/panico.png
 
   fonts:
     - family: Aleo

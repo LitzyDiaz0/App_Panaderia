@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './puntoventa.dart';
 
 class AdminPage extends StatelessWidget {
   const AdminPage({super.key});
@@ -81,6 +82,12 @@ class AdminPage extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           // Lógica para Punto de Venta
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const PuntoDeVentaPage(),
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
