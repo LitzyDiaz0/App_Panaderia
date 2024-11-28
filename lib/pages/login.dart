@@ -21,6 +21,13 @@ class LoginPageState extends State<LoginPage> {
     String usuario = usuarioController.text.trim();
     String contrasena = contrasenaController.text.trim();
 
+    if (usuario.isEmpty || contrasena.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Por favor ingrese usuario y contraseña')),
+      );
+      return;
+    }
+
     // Validar login usando el servicio
     final user = authService.validarLogin(usuario, contrasena);
 
@@ -34,7 +41,6 @@ class LoginPageState extends State<LoginPage> {
           ),
         );
       } else if (user.rol == 'empleado') {
-        // Pasa el rol del usuario a la siguiente página
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import './registro.dart';
-import './admnprinc.dart';
+import '../services/auth_service.dart';
+import './registro.dart'; // Importa tu AuthService
 
 class AdministrarUsuariosPage extends StatelessWidget {
-  const AdministrarUsuariosPage({super.key});
+  final AuthService authService = AuthService(); // Instancia de AuthService
+
+  AdministrarUsuariosPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,56 +15,42 @@ class AdministrarUsuariosPage extends StatelessWidget {
         children: [
           // Barra de navegación
           Container(
-            height: 80, // Altura del encabezado
-            color: const Color.fromARGB(255, 135, 71, 15), // Color café
+            height: 80,
+            color: const Color.fromARGB(255, 135, 71, 15),
             child: Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(
-                      top: 15.0), // Espacio adicional arriba del ícono
+                  padding: const EdgeInsets.only(top: 15.0),
                   child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                    ), // Flecha para volver
-                    iconSize: 40, // Tamaño del ícono de la flecha
+                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    iconSize: 40,
                     onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const AdminPage(), // Asegúrate de que LoginPage esté importado
-                        ),
-                      ); // Volver a la pantalla anterior
+                      Navigator.pop(context);
                     },
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20), // Espacio para separar la barra
+          const SizedBox(height: 20),
           // Imagen personalizada
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ClipOval(
               child: Container(
-                width: 130, // Ancho del contorno circular
-                height: 130, // Alto del contorno circular
+                width: 130,
+                height: 130,
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black, // Color del borde
-                    width: 3, // Grosor del borde
-                  ),
-                  shape: BoxShape.circle, // Forma circular
+                  border: Border.all(color: Colors.black, width: 3),
+                  shape: BoxShape.circle,
                 ),
                 child: Image.asset(
-                  'assets/img/empleados.png', // Ruta de la imagen personalizada
+                  'assets/img/empleados.png',
                   fit: BoxFit.cover,
                 ),
               ),
             ),
           ),
-          // Título de empleados
           const Text(
             'Empleados',
             style: TextStyle(
@@ -71,8 +59,7 @@ class AdministrarUsuariosPage extends StatelessWidget {
               color: Color.fromRGBO(96, 60, 30, 1),
             ),
           ),
-          const SizedBox(height: 20), // Espacio debajo del título
-          // Botón para agregar usuario alineado a la izquierda
+          const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.only(left: 16.0, right: 16.0),
             child: Row(
@@ -83,8 +70,7 @@ class AdministrarUsuariosPage extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            const RegistroPage(), // Asegúrate de que LoginPage esté importado
+                        builder: (context) => const RegistroPage(),
                       ),
                     );
                   },
@@ -99,17 +85,12 @@ class AdministrarUsuariosPage extends StatelessWidget {
                   ),
                   icon: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white, // Fondo blanco del círculo
-                      shape: BoxShape.circle, // Forma circular
-                      border: Border.all(
-                          color: Colors.black, width: 2), // Borde negro
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.black, width: 2),
                     ),
-                    padding: const EdgeInsets.all(
-                        2.0), // Espacio alrededor del ícono
-                    child: const Icon(
-                      Icons.add, // Icono de agregar
-                      color: Colors.black,
-                    ),
+                    padding: const EdgeInsets.all(2.0),
+                    child: const Icon(Icons.add, color: Colors.black),
                   ),
                   label: const Text(
                     'Agregar Empleado',
@@ -119,28 +100,23 @@ class AdministrarUsuariosPage extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 20), // Espacio debajo del botón
-          // Tabla de empleados
+          const SizedBox(height: 20),
           Expanded(
             child: SingleChildScrollView(
-              scrollDirection: Axis.vertical, // Permite desplazamiento vertical
+              scrollDirection: Axis.vertical,
               child: SingleChildScrollView(
-                scrollDirection:
-                    Axis.horizontal, // Permite desplazamiento horizontal
+                scrollDirection: Axis.horizontal,
                 child: Padding(
-                  padding: const EdgeInsets.all(
-                      8.0), // Padding para evitar que la tabla toque los bordes
+                  padding: const EdgeInsets.all(8.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Colors.black), // Borde alrededor de la tabla
-                      borderRadius:
-                          BorderRadius.circular(8), // Bordes redondeados
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     child: DataTable(
-                      columnSpacing: 15, // Mayor espacio entre columnas
+                      columnSpacing: 15,
                       // ignore: deprecated_member_use
-                      dataRowHeight: 60, // Más espacio entre las filas
+                      dataRowHeight: 60,
                       columns: const [
                         DataColumn(label: Text('Nombre')),
                         DataColumn(label: Text('Teléfono')),
@@ -148,120 +124,34 @@ class AdministrarUsuariosPage extends StatelessWidget {
                         DataColumn(label: Text('Usuario')),
                         DataColumn(label: Text('Acciones')),
                       ],
-                      rows: [
-                        DataRow(cells: [
-                          const DataCell(Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Juan Pérez',
-                                style: TextStyle(fontSize: 14)),
-                          )),
-                          const DataCell(Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('555-1234',
-                                style: TextStyle(fontSize: 14)),
-                          )),
-                          const DataCell(Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child:
-                                Text('Mañana', style: TextStyle(fontSize: 14)),
-                          )),
-                          const DataCell(Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child:
-                                Text('jperez', style: TextStyle(fontSize: 14)),
-                          )),
-                          DataCell(Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.orange, // Relleno naranja
-                                  borderRadius: BorderRadius.circular(
-                                      8), // Esquinas redondeadas
-                                ),
-                                child: IconButton(
+                      rows: authService.usuarios.map((user) {
+                        return DataRow(
+                          cells: [
+                            DataCell(Text(user.nombre)),
+                            DataCell(Text(user.telefono)),
+                            DataCell(Text(user.turno)),
+                            DataCell(Text(user.usuario)),
+                            DataCell(Row(
+                              children: [
+                                IconButton(
                                   icon: const Icon(Icons.edit),
-                                  color: Colors.white, // Ícono blanco
+                                  color: Colors.orange,
                                   onPressed: () {
-                                    // Lógica para editar
+                                    // Lógica para editar el usuario
                                   },
                                 ),
-                              ),
-                              const SizedBox(width: 8), // Espacio entre íconos
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.pink, // Relleno rosa
-                                  borderRadius: BorderRadius.circular(
-                                      8), // Esquinas redondeadas
-                                ),
-                                child: IconButton(
+                                IconButton(
                                   icon: const Icon(Icons.delete),
-                                  color: Colors.white, // Ícono blanco
+                                  color: Colors.pink,
                                   onPressed: () {
-                                    // Lógica para eliminar
+                                    // Lógica para eliminar el usuario
                                   },
                                 ),
-                              ),
-                            ],
-                          )),
-                        ]),
-                        DataRow(cells: [
-                          const DataCell(Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Ana Gómez',
-                                style: TextStyle(fontSize: 14)),
-                          )),
-                          const DataCell(Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('555-5678',
-                                style: TextStyle(fontSize: 14)),
-                          )),
-                          const DataCell(Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child:
-                                Text('Tarde', style: TextStyle(fontSize: 14)),
-                          )),
-                          const DataCell(Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child:
-                                Text('agomez', style: TextStyle(fontSize: 14)),
-                          )),
-                          DataCell(Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.orange, // Relleno naranja
-                                  borderRadius: BorderRadius.circular(
-                                      8), // Esquinas redondeadas
-                                ),
-                                child: IconButton(
-                                  icon: const Icon(Icons.edit),
-                                  color: Colors.white, // Ícono blanco
-                                  onPressed: () {
-                                    // Lógica para editar
-                                  },
-                                ),
-                              ),
-                              const SizedBox(width: 8), // Espacio entre íconos
-                              Container(
-                                // Tamaño más pequeño
-                                decoration: BoxDecoration(
-                                  color: Colors.pink, // Relleno rosa
-                                  borderRadius: BorderRadius.circular(
-                                      8), // Esquinas redondeadas
-                                ),
-                                child: IconButton(
-                                  icon: const Icon(Icons.delete),
-                                  color: Colors.white, // Ícono blanco
-                                  onPressed: () {
-                                    // Lógica para eliminar
-                                  },
-                                ),
-                              ),
-                            ],
-                          )),
-                        ]),
-                        // Puedes agregar más filas aquí
-                      ],
+                              ],
+                            )),
+                          ],
+                        );
+                      }).toList(),
                     ),
                   ),
                 ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import './admnprinc.dart';
+import '../Services/usuario_service.dart'; // Importamos el servicio
+import '../models/usuario_model.dart'; // Importamos el modelo
+import './adminusers.dart';
 
 class RegistroPage extends StatefulWidget {
   const RegistroPage({super.key});
@@ -18,6 +20,9 @@ class _RegistroPageState extends State<RegistroPage> {
   bool _passwordVisible = false;
   String _turnoSeleccionado = "M";
   String _rolSeleccionado = "empleado";
+
+  final UsuarioService usuarioService =
+      UsuarioService(); // Instanciamos el servicio
 
   @override
   void initState() {
@@ -49,7 +54,8 @@ class _RegistroPageState extends State<RegistroPage> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const AdminPage(),
+                            builder: (context) =>
+                                AdministrarUsuariosPage(), // Asegúrate de que LoginPage esté importado
                           ),
                         );
                       },
@@ -69,7 +75,7 @@ class _RegistroPageState extends State<RegistroPage> {
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: const Color.fromARGB(123, 0, 0, 0),
-                          width: 1, // Borde más pronunciado
+                          width: 1,
                         ),
                         boxShadow: [
                           BoxShadow(
@@ -101,7 +107,7 @@ class _RegistroPageState extends State<RegistroPage> {
                               labelText: 'Nombre',
                               prefixIcon: const Icon(Icons.person),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(15),
                               ),
                             ),
                           ),
@@ -209,10 +215,10 @@ class _RegistroPageState extends State<RegistroPage> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 35),
                           // Botón Registrar
                           ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               // Lógica para registrar
                               final nombre = _nombreController.text;
                               final telefono = _telefonoController.text;
@@ -230,7 +236,20 @@ class _RegistroPageState extends State<RegistroPage> {
                                   ),
                                 );
                               } else {
-                                // Lógica de registro aquí
+                                // Crear un nuevo usuario
+                                final nuevoUsuario = Usuario(
+                                  usuario: usuario,
+                                  turno: _turnoSeleccionado,
+                                  contrasena: contrasena,
+                                  nombre: nombre,
+                                  telefono: telefono,
+                                  rol: _rolSeleccionado,
+                                );
+                                // Agregar el nuevo usuario al servicio
+                                await usuarioService
+                                    .agregarUsuario(nuevoUsuario);
+
+                                // ignore: use_build_context_synchronously
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
@@ -244,19 +263,19 @@ class _RegistroPageState extends State<RegistroPage> {
                               foregroundColor: Colors.black,
                               side: const BorderSide(
                                 color: Colors.black,
-                                width: 2, // Borde negro
+                                width: 2,
                               ),
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 14, horizontal: 50),
+                                  vertical: 10, horizontal: 70),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(20),
                               ),
                             ),
                             child: const Text(
                               'Registrar',
                               style: TextStyle(
                                 fontSize: 18,
-                                color: Colors.black, // Texto negro
+                                color: Colors.black,
                               ),
                             ),
                           ),
