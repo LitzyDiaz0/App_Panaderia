@@ -146,6 +146,32 @@ class PuntoDeVentaPage extends StatelessWidget {
                         style: TextStyle(color: Colors.black),
                       ),
                     ),
+                    // Botón Inventario
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        // Lógica para inventario
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side: const BorderSide(
+                            color: Colors.black, // Borde negro
+                            width: 1,
+                          ),
+                        ),
+                      ),
+                      icon: const Icon(
+                        Icons.inventory, // Icono para inventario
+                        color: Colors.black,
+                      ),
+                      label: const Text(
+                        'Inventario',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
                   ],
                 ),
               ),

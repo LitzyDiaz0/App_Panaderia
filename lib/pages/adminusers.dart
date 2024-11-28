@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import './registro.dart';
+import './admnprinc.dart';
 
 class AdministrarUsuariosPage extends StatelessWidget {
   const AdministrarUsuariosPage({super.key});
@@ -25,7 +27,13 @@ class AdministrarUsuariosPage extends StatelessWidget {
                     ), // Flecha para volver
                     iconSize: 40, // Tamaño del ícono de la flecha
                     onPressed: () {
-                      Navigator.pop(context); // Volver a la pantalla anterior
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const AdminPage(), // Asegúrate de que LoginPage esté importado
+                        ),
+                      ); // Volver a la pantalla anterior
                     },
                   ),
                 ),
@@ -43,7 +51,7 @@ class AdministrarUsuariosPage extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.black, // Color del borde
-                    width: 4, // Grosor del borde
+                    width: 3, // Grosor del borde
                   ),
                   shape: BoxShape.circle, // Forma circular
                 ),
@@ -72,6 +80,13 @@ class AdministrarUsuariosPage extends StatelessWidget {
                 ElevatedButton.icon(
                   onPressed: () {
                     // Lógica para agregar un nuevo usuario
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const RegistroPage(), // Asegúrate de que LoginPage esté importado
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
